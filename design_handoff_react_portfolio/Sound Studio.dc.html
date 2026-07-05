@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="ext-resource-dependency" content="assets/spring.mp3">
+<meta name="ext-resource-dependency" content="assets/campus-song.mp3">
+<meta name="ext-resource-dependency" content="assets/dream.wav">
+<meta name="ext-resource-dependency" content="assets/sky.mp3">
+<meta name="ext-resource-dependency" content="assets/shaonian-de-meng.mp3">
+<script src="./support.js"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="url(#g)"/><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f7ed6"/><stop offset="0.5" stop-color="#ea8fc0"/><stop offset="1" stop-color="#ffd9a4"/></linearGradient></defs><text x="50" y="62" text-anchor="middle" font-family="Georgia,serif" font-size="34" font-weight="bold" fill="#fff">SQ</text></svg></template>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&family=Dancing+Script:wght@600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; height: 100%; }
+    body { font-family: 'Hanken Grotesk', system-ui, sans-serif; background: #ffffff; color: #1a2438; -webkit-font-smoothing: antialiased; overflow: hidden; }
+    ::selection { background: #c39ad4; color: #fff; }
+    button { font-family: inherit; }
+    [data-scrollable]::-webkit-scrollbar { width: 0; height: 0; }
+    [data-scrollable] { scrollbar-width: none; }
+    @keyframes ss-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    @keyframes ss-pop { 0% { transform: scale(0.92); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    @keyframes ss-eq { 0%,100% { transform: scaleY(0.4); } 50% { transform: scaleY(1); } }
+    @keyframes ss-orb { 0%,100% { box-shadow: 0 0 18px 5px rgba(255,120,40,0.6); } 50% { box-shadow: 0 0 26px 9px rgba(255,120,40,0.85); } }
+    @keyframes ss-reel { to { transform: rotate(360deg); } }
+    [data-page] { visibility: hidden; }
+    [data-page][data-active="true"] { visibility: visible; z-index: 10; }
+    [data-dot] { color: #9aa1bb; background: transparent; }
+    [data-dot][data-on="true"] { color: #ab7cbe; background: rgba(195,154,212,0.14); }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</helmet>
+
+<div data-app style="position:fixed;inset:0;background:#ffffff;">
+
+  <!-- ===== fixed right dock ===== -->
+  <nav data-dock style="position:fixed;right:clamp(8px,1.2vw,18px);top:50%;transform:translateY(-50%) scale(1);transform-origin:right center;transition:transform .32s cubic-bezier(.3,1.2,.4,1);z-index:95;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px;border-radius:36px;background:rgba(255,255,255,0.62);backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);border:1px solid rgba(255,255,255,0.85);box-shadow:0 24px 60px -24px rgba(40,50,100,0.35),inset 0 1px 1px rgba(255,255,255,0.9);" style-hover="transform:translateY(-50%) scale(1.35);">
+    <button data-go="home" data-dot data-on="{{ show.home }}" title="Home" aria-label="Home" style="position:relative;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:none;border-radius:50%;cursor:pointer;">
+      <span data-tip style="position:absolute;right:calc(100% + 14px);top:50%;transform:translateY(-50%);white-space:nowrap;padding:6px 13px;border-radius:9px;background:rgba(255,255,255,0.92);color:#2a3050;font-size:12px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 10px 24px -12px rgba(40,50,100,0.4);">Home</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+    </button>
+    <button data-go="about" data-dot data-on="{{ show.about }}" title="About" aria-label="About" style="position:relative;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:none;border-radius:50%;cursor:pointer;">
+      <span data-tip style="position:absolute;right:calc(100% + 14px);top:50%;transform:translateY(-50%);white-space:nowrap;padding:6px 13px;border-radius:9px;background:rgba(255,255,255,0.92);color:#2a3050;font-size:12px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 10px 24px -12px rgba(40,50,100,0.4);">About</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></svg>
+    </button>
+    <button data-go="work" data-dot data-on="{{ show.work }}" title="Work" aria-label="Work" style="position:relative;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:none;border-radius:50%;cursor:pointer;">
+      <span data-tip style="position:absolute;right:calc(100% + 14px);top:50%;transform:translateY(-50%);white-space:nowrap;padding:6px 13px;border-radius:9px;background:rgba(255,255,255,0.92);color:#2a3050;font-size:12px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 10px 24px -12px rgba(40,50,100,0.4);">Work</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>
+    </button>
+    <button data-go="skills" data-dot data-on="{{ show.skills }}" title="Skills" aria-label="Skills" style="position:relative;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:none;border-radius:50%;cursor:pointer;">
+      <span data-tip style="position:absolute;right:calc(100% + 14px);top:50%;transform:translateY(-50%);white-space:nowrap;padding:6px 13px;border-radius:9px;background:rgba(255,255,255,0.92);color:#2a3050;font-size:12px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 10px 24px -12px rgba(40,50,100,0.4);">Skills</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2a2 2 0 0 1-.6-1.4V5a2 2 0 0 1 2-2h6.8a2 2 0 0 1 1.4.6l7 7a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg>
+    </button>
+    <button data-go="experience" data-dot data-on="{{ show.experience }}" title="Experience" aria-label="Experience" style="position:relative;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:none;border-radius:50%;cursor:pointer;">
+      <span data-tip style="position:absolute;right:calc(100% + 14px);top:50%;transform:translateY(-50%);white-space:nowrap;padding:6px 13px;border-radius:9px;background:rgba(255,255,255,0.92);color:#2a3050;font-size:12px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 10px 24px -12px rgba(40,50,100,0.4);">Experience</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h12M9 12h12M9 18h12"/><path d="M4 6l1 1 1.6-1.7M4 12l1 1 1.6-1.7M4 18l1 1 1.6-1.7"/></svg>
+    </button>
+    <button data-go="contact" data-dot data-on="{{ show.contact }}" title="Contact" aria-label="Contact" style="position:relative;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:none;border-radius:50%;cursor:pointer;">
+      <span data-tip style="position:absolute;right:calc(100% + 14px);top:50%;transform:translateY(-50%);white-space:nowrap;padding:6px 13px;border-radius:9px;background:rgba(255,255,255,0.92);color:#2a3050;font-size:12px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 10px 24px -12px rgba(40,50,100,0.4);">Contact</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </button>
+  </nav>
+
+  <!-- ============ DASHBOARD ============ -->
+  <div data-page="home" data-screen-label="Dashboard" data-active="{{ show.home }}" style="position:absolute;inset:0;z-index:1;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:clamp(74px,9vh,110px) clamp(70px,9vw,150px) clamp(40px,6vh,80px) clamp(24px,6vw,90px);box-sizing:border-box;background:#eef3fc;">
+    <div data-scrollable style="position:absolute;inset:0;z-index:2;overflow-y:auto;overflow-x:hidden;box-sizing:border-box;background:linear-gradient(180deg,#8f7ed6 0%,#b98ad8 20%,#ea8fc0 42%,#ff9aa8 62%,#ffb488 82%,#ffd9a4 100%);">
+      <dc-import name="Mac Player" hint-size="100%,100%" on-open-page="{{ goPage }}" on-view-work="{{ goWork }}" style="display:block;min-height:100%;"></dc-import>
+    </div>
+  </div>
+
+  <!-- ============ ABOUT (notebook, two sheets + fold) ============ -->
+  <div data-page="about" data-screen-label="About" data-active="{{ show.about }}" data-scrollable style="position:absolute;inset:0;z-index:1;overflow-y:auto;overflow-x:hidden;">
+    <div style="min-height:100%;box-sizing:border-box;padding:clamp(60px,7vh,90px) clamp(46px,6vw,100px) clamp(50px,7vh,78px) clamp(16px,4vw,64px);display:flex;justify-content:center;">
+      <div data-about-book style="position:relative;width:min(1040px,100%);perspective:2200px;">
+        <!-- SHEET 1 -->
+        <div data-sheet="1" style="position:relative;transform-origin:center bottom;background:linear-gradient(150deg,#d9b8e8 0%,#ab7cbe 100%);border-radius:34px 34px 0 0;padding:14px 14px 0;box-shadow:0 40px 90px -40px rgba(0,0,0,0.85),inset 0 2px 3px rgba(255,255,255,0.28);">
+          <div style="position:relative;border-radius:22px 22px 0 0;overflow:hidden;background-color:#eef1fb;background-image:linear-gradient(rgba(96,116,168,0.16) 1px,transparent 1px),linear-gradient(90deg,rgba(96,116,168,0.16) 1px,transparent 1px);background-size:34px 34px;display:flex;flex-wrap:wrap;align-items:center;min-height:clamp(440px,66vh,640px);">
+            <div data-anim style="flex:1 1 340px;min-width:290px;padding:clamp(30px,4.4vw,58px);display:flex;flex-direction:column;justify-content:center;">
+              <span style="display:block;font-family:'Caveat',cursive;font-weight:700;font-size:clamp(44px,5.6vw,66px);color:#ab7cbe;line-height:0.9;">Songqi <span style="font-size:0.55em;">🌸</span></span>
+              <span style="display:block;font-family:'PT Serif',serif;font-weight:700;font-size:17px;color:#e2a6c4;margin-top:8px;">Music Producer</span>
+              <h2 style="font-family:'PT Serif',Charter,Cambria,serif;font-weight:700;font-size:clamp(28px,3.4vw,42px);line-height:1.05;color:#1c2138;margin:20px 0 0;">Sound should <em style="font-style:italic;color:#ab7cbe;">feel alive.</em></h2>
+              <div style="margin-top:20px;max-width:500px;display:flex;flex-direction:column;gap:13px;">
+                <p style="margin:0;font-size:14.5px;line-height:1.7;color:#3f4560;">Hello! I am a music creator from Shanghai, currently pursuing my BMus at the <span style="position:relative;white-space:nowrap;font-weight:700;">University of Edinburgh<svg viewBox="0 0 100 8" preserveAspectRatio="none" style="position:absolute;pointer-events:none;overflow:visible;left:-2%;right:-2%;width:104%;bottom:-6px;height:8px;"><path data-mark pathLength="1" d="M2 5 C 25 2.6, 55 6.2, 98 3.4" fill="none" stroke="#3d78e0" stroke-width="2.6" stroke-linecap="round" style="stroke-dasharray:1;stroke-dashoffset:1;"/></svg></span> (2024–2028), with an upcoming exchange year at the <span style="position:relative;white-space:nowrap;font-weight:700;">University of Toronto<svg viewBox="0 0 100 8" preserveAspectRatio="none" style="position:absolute;pointer-events:none;overflow:visible;left:-2%;right:-2%;width:104%;bottom:-6px;height:8px;"><path data-mark pathLength="1" d="M2 5 C 25 2.6, 55 6.2, 98 3.4" fill="none" stroke="#3d78e0" stroke-width="2.6" stroke-linecap="round" style="stroke-dasharray:1;stroke-dashoffset:1;"/></svg></span> in 2027.</p>
+                <p style="margin:0;font-size:14.5px;line-height:1.7;color:#3f4560;">I have an almost instinctive curiosity for <span style="position:relative;white-space:nowrap;font-weight:700;padding:0 3px;">Music Technology<svg viewBox="0 0 100 30" preserveAspectRatio="none" style="position:absolute;pointer-events:none;overflow:visible;left:-3%;top:-4px;width:106%;height:calc(100% + 8px);"><path data-mark pathLength="1" d="M4 6 C 30 3, 75 4.5, 96 5 C 98.5 12, 97 20, 95.5 25 C 65 27.5, 28 26, 4.5 25.5 C 2.5 18, 3 11, 4 6 Z" fill="none" stroke="#f06a2c" stroke-width="2.4" stroke-linecap="round" style="stroke-dasharray:1;stroke-dashoffset:1;"/></svg></span>. Since systematically studying music theory in high school, I have channeled my passion into audio crafting and sound design. Deeply drawn to film and game scoring, my ultimate career goal is to join a top-tier music studio like miHoYo's <span data-mark-hl style="font-weight:700;background-image:linear-gradient(104deg,transparent 0.5%,rgba(80,200,120,0.55) 3%,rgba(80,200,120,0.55) 97%,transparent 99%);background-repeat:no-repeat;background-size:0% 88%;background-position:0 60%;padding:1px 3px;margin:-1px -1px;border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone;">HOYO-MiX</span>.</p>
+                <p style="margin:0;font-size:14.5px;line-height:1.7;color:#3f4560;">Beyond behind-the-scenes production, I have a deep-rooted passion for the stage. Having trained in <span style="position:relative;white-space:nowrap;font-weight:700;padding:0 2px;">Chinese folk dance for 14 years<svg viewBox="0 0 100 34" preserveAspectRatio="none" style="position:absolute;pointer-events:none;overflow:visible;left:-5%;top:-7px;width:110%;height:calc(100% + 14px);"><path data-mark pathLength="1" d="M50 3.5 C 79 2, 97 7.5, 96.5 16.5 C 96 26.5, 74 31.5, 48 31 C 22 30.5, 3.5 26, 4 16.5 C 4.5 8, 24 3.5, 62 4" fill="none" stroke="#f06a2c" stroke-width="2.6" stroke-linecap="round" style="stroke-dasharray:1;stroke-dashoffset:1;"/></svg></span> since the age of four, I have developed a unique sensitivity to performance. Whether it is dancing, singing, or music production, I genuinely thrive on stage and love bringing energy and joy to audiences.</p>
+              </div>
+            </div>
+            <div style="flex:1 1 260px;min-width:240px;padding:clamp(24px,3vw,40px);display:flex;align-items:center;justify-content:center;">
+              <div style="position:relative;width:min(300px,80%);aspect-ratio:0.82;transform:rotate(2.5deg);background:#fff;padding:12px 12px 40px;border-radius:3px;box-shadow:0 26px 44px -22px rgba(40,45,80,0.6);">
+                <img src="assets/letter-girl.png" alt="Songqi illustration" style="display:block;width:100%;height:100%;object-fit:cover;">
+                <span style="position:absolute;left:0;right:0;bottom:12px;text-align:center;font-family:'Caveat',cursive;font-size:22px;color:#ab7cbe;">that's me 🌸</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FOLD / crease (slim seam like an open notebook) -->
+        <div data-fold style="position:relative;height:6px;margin:0 6px;background:#f4c8d6;box-shadow:0 -5px 8px -4px rgba(120,60,90,0.4),0 5px 8px -4px rgba(120,60,90,0.4);z-index:5;">
+          <span data-fold-hint style="position:absolute;left:-34px;top:50%;transform:translateY(-50%) rotate(-8deg);width:64px;height:14px;border-radius:3px 8px 8px 3px;background:linear-gradient(90deg,#e88a94,#f2a8b0);box-shadow:0 6px 12px -6px rgba(0,0,0,0.5);"></span>
+          <span style="position:absolute;right:-30px;top:50%;transform:translateY(-50%) rotate(6deg);width:56px;height:14px;border-radius:8px 3px 3px 8px;background:linear-gradient(90deg,#f2a8b0,#e88a94);box-shadow:0 6px 12px -6px rgba(0,0,0,0.5);"></span>
+        </div>
+
+        <!-- SHEET 2 -->
+        <div data-sheet="2" style="position:relative;transform-origin:center top;background:linear-gradient(150deg,#d9b8e8 0%,#ab7cbe 100%);border-radius:0 0 34px 34px;padding:0 14px 14px;box-shadow:0 40px 90px -40px rgba(0,0,0,0.85),inset 0 -2px 3px rgba(255,255,255,0.18);">
+          <div style="position:relative;border-radius:0 0 22px 22px;overflow:hidden;background-color:#eef1fb;background-image:linear-gradient(rgba(96,116,168,0.16) 1px,transparent 1px),linear-gradient(90deg,rgba(96,116,168,0.16) 1px,transparent 1px);background-size:34px 34px;min-height:clamp(440px,64vh,600px);">
+            <div style="position:relative;box-sizing:border-box;padding:clamp(28px,4vw,52px);display:flex;flex-direction:column;gap:22px;">
+              <span style="font-family:'PT Serif',serif;font-weight:700;font-style:italic;font-size:26px;color:#ab7cbe;">The Specs</span>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px 32px;">
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <span style="font-size:12px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#e2a6c4;">📍 Location</span>
+                  <span style="font-size:14.5px;font-weight:600;color:#1c2138;">Edinburgh, UK</span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <span style="font-size:12px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#e2a6c4;">🎓 Education</span>
+                  <span style="font-size:14.5px;font-weight:600;color:#1c2138;">University of Edinburgh — BMus Music <span style="color:#5d6377;font-weight:500;">(2024–2028)</span></span>
+                  <span style="font-size:14.5px;font-weight:600;color:#1c2138;">University of Toronto — Exchange <span style="color:#5d6377;font-weight:500;">(2027)</span></span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <span style="font-size:12px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#e2a6c4;">🗣️ Languages</span>
+                  <span style="font-size:14.5px;font-weight:600;color:#1c2138;">Chinese <span style="color:#5d6377;font-weight:500;">(Native — Mandarin &amp; Shanghainese)</span></span>
+                  <span style="font-size:14.5px;font-weight:600;color:#1c2138;">English <span style="color:#5d6377;font-weight:500;">(Fluent)</span> · Japanese <span style="color:#5d6377;font-weight:500;">(Conversational)</span></span>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <span style="font-size:12px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#e2a6c4;">🎹 Music Stack &amp; Focus</span>
+                <div style="display:flex;flex-wrap:wrap;gap:9px;">
+                  <span style="display:inline-flex;align-items:baseline;gap:6px;padding:7px 14px;border:1.5px solid #ab7cbe;border-radius:999px;font-size:12.5px;font-weight:600;color:#3f4560;">Audio Crafting &amp; Sound Design</span>
+                  <span style="display:inline-flex;align-items:baseline;gap:6px;padding:7px 14px;border:1.5px solid #ab7cbe;border-radius:999px;font-size:12.5px;font-weight:600;color:#3f4560;"><b style="font-family:'PT Serif',serif;font-size:15px;color:#ab7cbe;">Goal</b> Game &amp; Film Scoring · HOYO-MiX</span>
+                  <span style="display:inline-flex;align-items:baseline;gap:6px;padding:7px 14px;border:1.5px solid #ab7cbe;border-radius:999px;font-size:12.5px;font-weight:600;color:#3f4560;">Music Theory</span>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <span style="font-size:12px;font-weight:800;letter-spacing:0.18em;text-transform:uppercase;color:#e2a6c4;">✨ Arts &amp; Interests</span>
+                <div style="display:flex;flex-wrap:wrap;gap:9px;">
+                  <span style="display:inline-flex;align-items:baseline;gap:6px;padding:7px 14px;border:1.5px solid #ab7cbe;border-radius:999px;font-size:12.5px;font-weight:600;color:#3f4560;"><b style="font-family:'PT Serif',serif;font-size:15px;color:#ab7cbe;">14 yrs</b> Chinese Folk Dance</span>
+                  <span style="display:inline-flex;align-items:baseline;gap:6px;padding:7px 14px;border:1.5px solid #ab7cbe;border-radius:999px;font-size:12.5px;font-weight:600;color:#3f4560;">Stage Performance — Music · Dance · Vocals</span>
+                  <span style="display:inline-flex;align-items:baseline;gap:6px;padding:7px 14px;border:1.5px solid #ab7cbe;border-radius:999px;font-size:12.5px;font-weight:600;color:#3f4560;">C-pop · J-pop · K-pop Enthusiast</span>
+                </div>
+              </div>
+            </div>
+            <span style="position:absolute;right:clamp(22px,3vw,44px);bottom:clamp(20px,3vh,34px);font-family:'Caveat',cursive;font-size:22px;color:#a3aacb;transform:rotate(-3deg);">✦ that's me — nice to meet you</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ WORK (waveform bg + cassette arc rail) ============ -->
+  <div data-page="work" data-screen-label="Work" data-active="{{ show.work }}" style="position:absolute;inset:0;z-index:1;overflow:hidden;background:#ffffff;">
+    <canvas data-wave style="position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:0.55;"></canvas>
+    <span style="position:absolute;inset:0;z-index:1;background:radial-gradient(120% 80% at 30% 50%,rgba(195,154,212,0.14),transparent 60%);pointer-events:none;"></span>
+
+    <div style="position:absolute;inset:0;z-index:3;display:flex;">
+      <!-- LEFT: cassette arc rail -->
+      <div data-cass-rail style="position:relative;flex:none;width:clamp(300px,32vw,420px);height:100%;overflow:hidden;"></div>
+      <!-- RIGHT: detail -->
+      <div style="flex:1;min-width:0;display:flex;align-items:center;padding:0 clamp(30px,6vw,110px) 0 clamp(70px,10vw,180px);">
+        <div data-detail style="max-width:440px;">
+          <div style="margin-bottom:18px;">
+            <span style="font-weight:800;font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:#c39ad4;">Selected Work / 05 — The tape shelf</span>
+            <p style="margin:5px 0 0;font-size:13px;color:#5d6377;">Hover to slow the reel, click a cassette to hear its story.</p>
+          </div>
+          <span style="display:inline-block;margin-bottom:12px;font-size:11px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:#e2a6c4;">Now playing</span>
+          <h3 data-d-title style="margin:0;font-family:'PT Serif',Charter,Cambria,serif;font-weight:700;font-size:clamp(40px,5vw,68px);line-height:0.92;color:#1c2138;"></h3>
+          <div data-d-role style="margin-top:10px;font-size:18px;font-weight:700;color:#1c2138;"></div>
+          <p data-d-mood style="margin:14px 0 0;font-size:15px;line-height:1.6;color:#535a72;max-width:400px;"></p>
+          <div data-d-wave style="margin:22px 0 0;display:flex;align-items:flex-end;gap:4px;height:46px;"></div>
+          <div style="margin-top:22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+            <button data-d-play style="display:flex;align-items:center;gap:13px;padding:0 22px;height:56px;border-radius:999px;background:#c39ad4;border:none;color:#fff;cursor:pointer;font-weight:800;font-size:15px;box-shadow:0 18px 34px -18px rgba(195,154,212,0.8);"><span style="display:flex;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.2);align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 6.5v11l9-5.5z"/></svg></span>Play preview</button>
+            <div style="display:flex;gap:22px;font-size:12px;font-weight:700;color:#5d6377;"><span data-d-year></span><span data-d-meta></span></div>
+          </div>
+          <div data-seek-row style="margin-top:18px;display:none;align-items:center;gap:12px;max-width:400px;">
+            <span data-seek-cur style="flex:none;width:36px;font-size:11px;font-weight:700;color:#5d6377;font-variant-numeric:tabular-nums;">0:00</span>
+            <div data-seek style="flex:1;height:22px;display:flex;align-items:center;cursor:pointer;touch-action:none;">
+              <div style="position:relative;flex:1;height:5px;border-radius:3px;background:rgba(195,154,212,0.18);">
+                <div data-seek-fill style="position:absolute;left:0;top:0;bottom:0;width:0%;border-radius:3px;background:#c39ad4;"></div>
+                <div data-seek-knob style="position:absolute;left:0%;top:50%;transform:translate(-50%,-50%);width:13px;height:13px;border-radius:50%;background:#c39ad4;box-shadow:0 2px 6px rgba(195,154,212,0.6);"></div>
+              </div>
+            </div>
+            <span data-seek-dur style="flex:none;width:36px;font-size:11px;font-weight:700;color:#5d6377;font-variant-numeric:tabular-nums;text-align:right;">0:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SKILLS (pinboard moodboard) ============ -->
+  <div data-page="skills" data-screen-label="Skills" data-active="{{ show.skills }}" data-scrollable style="position:absolute;inset:0;z-index:1;overflow-y:auto;overflow-x:hidden;background:#ffffff;">
+    <div style="position:relative;min-height:100%;box-sizing:border-box;padding:clamp(64px,7vh,90px) clamp(40px,5vw,90px) clamp(120px,16vh,180px);display:flex;flex-direction:column;align-items:center;">
+      <!-- top doodle -->
+<span data-anim style="margin-bottom:14px;"><svg width="120" height="66" viewBox="0 0 120 66" fill="none" stroke="#c39ad4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M40 40 q4 -22 18 -24 q10 -1 12 8 q10 -4 16 3 q6 6 -2 13"/><circle cx="52" cy="22" r="7"/><path d="M46 40 l-6 16 M64 40 l4 15 M52 46 l0 12"/><path d="M78 44 q10 -3 16 4 M74 52 l14 4"/><path d="M8 54 q6 -14 14 -4 M4 56 l10 2 M100 30 q8 3 6 12 M110 40 l6 -3"/><path d="M30 60 l60 0"/></svg></span>
+
+      <!-- board -->
+      <div style="position:relative;width:min(1080px,100%);">
+        <!-- red mat -->
+        <span style="position:absolute;inset:-16px -12px;border-radius:26px;z-index:1;background:linear-gradient(135deg,#d9b8e8,#ab7cbe);box-shadow:0 50px 110px -50px rgba(0,0,0,0.9);"></span>
+        <!-- dark board -->
+        <div data-board style="position:relative;z-index:2;border-radius:20px;background:#14151f;box-shadow:inset 0 0 0 1px rgba(220,226,250,0.14),inset 0 0 80px -20px rgba(0,0,0,0.8);padding:26px 26px 30px 52px;min-height:640px;overflow:hidden;">
+          <!-- ruler numbers -->
+          <div data-ruler style="position:absolute;left:14px;top:26px;bottom:30px;width:24px;display:flex;flex-direction:column;justify-content:space-between;font-size:10px;font-weight:700;color:rgba(220,226,250,0.4);font-family:ui-monospace,monospace;"></div>
+          <!-- faint grid -->
+          <span style="position:absolute;left:44px;right:16px;top:26px;bottom:30px;background-image:linear-gradient(rgba(220,226,250,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(220,226,250,0.06) 1px,transparent 1px);background-size:64px 40px;border:1px solid rgba(220,226,250,0.1);border-radius:6px;pointer-events:none;"></span>
+
+          <!-- pinned cards -->
+          <div data-board-area style="position:relative;height:600px;">
+            <div data-pin style="position:absolute;left:3%;top:2%;width:210px;background:#fff;border-radius:9px;padding:8px;transform:rotate(-3deg);box-shadow:0 22px 40px -18px rgba(0,0,0,0.7);">
+              <div style="border-radius:6px;overflow:hidden;background:#f3f4f6;padding:12px 13px;">
+                <div style="display:flex;align-items:center;gap:7px;font-size:11px;font-weight:800;color:#1c2138;"><span style="width:8px;height:8px;border-radius:50%;background:#c39ad4;"></span>Pack · Mixing</div>
+                <div style="margin-top:9px;display:flex;gap:6px;">
+                  <span style="flex:1;height:34px;border-radius:6px;background:linear-gradient(135deg,#f4cede,#c39ad4);"></span>
+                  <span style="flex:1;height:34px;border-radius:6px;background:linear-gradient(135deg,#e4bcd8,#b48ab2);"></span>
+                  <span style="flex:1;height:34px;border-radius:6px;background:linear-gradient(135deg,#7ee0b0,#1f8a5b);"></span>
+                </div>
+                <div style="margin-top:8px;height:6px;border-radius:6px;background:#e2e4e8;"></div>
+                <div style="margin-top:5px;height:6px;width:70%;border-radius:6px;background:#e2e4e8;"></div>
+              </div>
+              <span style="display:block;margin-top:7px;font-family:'PT Serif',serif;font-weight:700;font-size:14px;color:#1c2138;">Production &amp; Mixing</span>
+            </div>
+
+            <div data-pin style="position:absolute;left:30%;top:0;width:230px;background:#141414;border-radius:9px;padding:8px;transform:rotate(2deg);box-shadow:0 22px 40px -18px rgba(0,0,0,0.75);">
+              <div style="border-radius:6px;overflow:hidden;background:#0c0c0c;padding:11px 12px;font-family:ui-monospace,monospace;font-size:10px;line-height:1.5;">
+                <div style="color:#6a6a6a;">// spectral analysis</div>
+                <div style="color:#f4cede;">gridCols <span style="color:#7fa8ff;">=</span> 40;</div>
+                <div style="color:#f4cede;">visible <span style="color:#7fa8ff;">=</span> 5;</div>
+                <div style="color:#7ee0b0;">primary <span style="color:#7fa8ff;">=</span> '#c39ad4';</div>
+                <div style="margin-top:6px;display:flex;gap:3px;">
+                  <span style="width:9px;height:9px;background:#c39ad4;"></span><span style="width:9px;height:9px;background:#333;"></span><span style="width:9px;height:9px;background:#f4cede;"></span><span style="width:9px;height:9px;background:#333;"></span><span style="width:9px;height:9px;background:#c39ad4;"></span>
+                </div>
+              </div>
+              <span style="display:block;margin-top:7px;font-family:'PT Serif',serif;font-weight:700;font-size:14px;color:#eef1fb;">Audio + Code</span>
+            </div>
+
+            <div data-pin style="position:absolute;right:2%;top:1%;width:216px;background:#191a1d;border-radius:9px;padding:8px;transform:rotate(-2deg);box-shadow:0 22px 40px -18px rgba(0,0,0,0.75);">
+              <div style="border-radius:6px;overflow:hidden;background:#0f1012;padding:11px 12px;">
+                <div style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:700;color:#ff5a4d;"><span style="width:7px;height:7px;border-radius:50%;background:#ff5a4d;"></span>You're live</div>
+                <div style="margin-top:8px;height:74px;border-radius:6px;background:linear-gradient(135deg,#3a4a2e,#6ea375);"></div>
+                <div style="margin-top:8px;height:8px;border-radius:8px;background:#c39ad4;"></div>
+              </div>
+              <span style="display:block;margin-top:7px;font-family:'PT Serif',serif;font-weight:700;font-size:14px;color:#eef1fb;">Live Sound</span>
+            </div>
+
+            <div data-pin style="position:absolute;left:5%;top:44%;width:250px;background:#1b1c1f;border-radius:9px;padding:8px;transform:rotate(1.5deg);box-shadow:0 22px 40px -18px rgba(0,0,0,0.75);">
+              <div style="border-radius:6px;overflow:hidden;background:linear-gradient(135deg,#2a2b30,#111);padding:14px 15px;">
+                <div style="font-family:'PT Serif',serif;font-weight:800;font-size:19px;color:#fff;line-height:0.95;">WHO'S<br>SPEAKING?</div>
+                <div style="margin-top:10px;display:flex;gap:6px;">
+                  <span style="width:30px;height:30px;border-radius:7px;background:#b56ea8;"></span>
+                  <span style="width:30px;height:30px;border-radius:7px;background:#d9b8e8;"></span>
+                  <span style="width:30px;height:30px;border-radius:7px;background:#eebbd2;"></span>
+                </div>
+              </div>
+              <span style="display:block;margin-top:7px;font-family:'PT Serif',serif;font-weight:700;font-size:14px;color:#eef1fb;">Content / 230K+</span>
+            </div>
+
+            <div data-pin style="position:absolute;left:34%;top:40%;width:238px;background:#fff;border-radius:9px;padding:8px;transform:rotate(-1.5deg);box-shadow:0 22px 40px -18px rgba(0,0,0,0.7);">
+              <div style="border-radius:6px;overflow:hidden;background:#fafafa;padding:12px 13px;">
+                <div style="font-size:10px;font-weight:800;color:#5d6377;">Appointments remaining</div>
+                <div style="margin-top:9px;display:flex;flex-direction:column;gap:6px;">
+                  <span style="height:10px;border-radius:5px;background:#d8e3fb;"></span>
+                  <span style="height:10px;width:80%;border-radius:5px;background:#cdeede;"></span>
+                  <span style="height:10px;width:60%;border-radius:5px;background:#fbe6c2;"></span>
+                  <span style="height:10px;width:70%;border-radius:5px;background:#f6d9cf;"></span>
+                </div>
+              </div>
+              <span style="display:block;margin-top:7px;font-family:'PT Serif',serif;font-weight:700;font-size:14px;color:#1c2138;">Studio Recording</span>
+            </div>
+
+            <div data-pin style="position:absolute;right:3%;top:42%;width:238px;background:#141414;border-radius:9px;padding:8px;transform:rotate(2.5deg);box-shadow:0 22px 40px -18px rgba(0,0,0,0.75);">
+              <div style="border-radius:6px;overflow:hidden;background:#0c0c0c;padding:11px 12px;">
+                <div style="display:flex;gap:4px;margin-bottom:8px;">
+                  <span style="flex:1;height:7px;border-radius:4px;background:#6347b5;"></span><span style="flex:1;height:7px;border-radius:4px;background:#1f8a5b;"></span><span style="flex:1;height:7px;border-radius:4px;background:#eebbd2;"></span>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:5px;">
+                  <span style="height:9px;border-radius:4px;background:#2a2b30;"></span>
+                  <span style="height:9px;width:85%;border-radius:4px;background:#2a2b30;"></span>
+                  <span style="height:9px;width:65%;border-radius:4px;background:#2a2b30;"></span>
+                </div>
+              </div>
+              <span style="display:block;margin-top:7px;font-family:'PT Serif',serif;font-weight:700;font-size:14px;color:#eef1fb;">DAW &amp; Editing</span>
+            </div>
+
+            <div data-pin style="position:absolute;left:9%;bottom:1%;width:236px;background:#fff;border-radius:9px;padding:8px;transform:rotate(-2deg);box-shadow:0 22px 40px -18px rgba(0,0,0,0.7);">
+              <div style="border-radius:6px;overflow:hidden;background:#faf8f3;padding:12px 13px;">
+                <div style="font-size:12px;font-weight:800;color:#1c2138;">Buenos Aires → Shanghai</div>
+                <div style="margin-top:6px;font-size:10px;color:#5d6377;">Master &amp; deliver · 24-bit</div>
+                <div style="margin-top:9px;display:flex;gap:-6px;">
+                  <span style="width:26px;height:26px;border-radius:50%;background:#e4bcd8;border:2px solid #fff;"></span>
+                  <span style="width:26px;height:26px;border-radius:50%;background:#eebbd2;border:2px solid #fff;margin-left:-8px;"></span>
+                  <span style="width:26px;height:26px;border-radius:50%;background:#1f8a5b;border:2px solid #fff;margin-left:-8px;"></span>
+                </div>
+              </div>
+              <span style="display:block;margin-top:7px;font-family:'PT Serif',serif;font-weight:700;font-size:14px;color:#1c2138;">Mastering &amp; Delivery</span>
+            </div>
+
+            <div data-pin style="position:absolute;right:5%;bottom:3%;width:200px;background:#1b1c1f;border-radius:9px;padding:8px;transform:rotate(1.5deg);box-shadow:0 22px 40px -18px rgba(0,0,0,0.75);">
+              <div style="border-radius:6px;overflow:hidden;background:linear-gradient(135deg,#8c5a36,#40263c);padding:16px 14px;display:flex;align-items:flex-end;gap:3px;height:78px;">
+                <span style="flex:1;height:40%;background:rgba(255,255,255,0.85);border-radius:3px;"></span><span style="flex:1;height:75%;background:rgba(255,255,255,0.85);border-radius:3px;"></span><span style="flex:1;height:55%;background:rgba(255,255,255,0.85);border-radius:3px;"></span><span style="flex:1;height:95%;background:rgba(255,255,255,0.85);border-radius:3px;"></span><span style="flex:1;height:60%;background:rgba(255,255,255,0.85);border-radius:3px;"></span><span style="flex:1;height:80%;background:rgba(255,255,255,0.85);border-radius:3px;"></span>
+              </div>
+              <span style="display:block;margin-top:7px;font-family:'PT Serif',serif;font-weight:700;font-size:14px;color:#eef1fb;">Arrangement</span>
+            </div>
+          </div>
+
+          <span style="position:absolute;right:26px;bottom:12px;font-family:'Caveat',cursive;font-size:20px;color:#b9bfda;">Everything you do, do it with care.</span>
+        </div>
+
+        <!-- polaroid tucked under the board (drag to pull out) -->
+        <div data-polaroid style="position:absolute;left:50%;top:100%;margin-top:-176px;z-index:0;transform:translate(-50%,0px);cursor:grab;touch-action:none;">
+          <div style="background:#fdfaf3;padding:9px 9px 30px;border-radius:6px;box-shadow:0 26px 44px -20px rgba(0,0,0,0.7);width:150px;transform:rotate(-1.5deg);outline:2px dashed #c39ad4;outline-offset:7px;">
+            <img src="assets/id-photo.png" alt="Songqi" draggable="false" style="display:block;width:132px;height:150px;object-fit:cover;object-position:top;user-select:none;-webkit-user-select:none;pointer-events:none;">
+            <span style="display:block;text-align:center;font-family:'Caveat',cursive;font-size:22px;color:#ab7cbe;margin-top:4px;">Songqi 🌸</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ EXPERIENCE (dark + side rays + duck) ============ -->
+  <div data-page="experience" data-screen-label="Experience" data-active="{{ show.experience }}" data-scrollable style="position:absolute;inset:0;z-index:1;overflow-y:auto;overflow-x:hidden;background:linear-gradient(125deg,#e9edfd 0%,#f1ecfb 34%,#e6effd 62%,#e2ebfb 100%);">
+    <span style="position:fixed;inset:0;z-index:0;background:radial-gradient(circle at 18% 22%,rgba(196,208,255,0.55),transparent 42%),radial-gradient(circle at 82% 18%,rgba(216,202,250,0.5),transparent 44%),radial-gradient(circle at 30% 84%,rgba(214,196,255,0.45),transparent 46%),radial-gradient(circle at 78% 80%,rgba(180,206,255,0.5),transparent 48%);pointer-events:none;"></span>
+
+    <div style="position:relative;z-index:2;min-height:100%;box-sizing:border-box;padding:clamp(64px,8vh,100px) clamp(46px,6vw,100px) clamp(50px,7vh,84px) clamp(16px,4vw,64px);display:flex;flex-direction:column;justify-content:center;">
+      <div data-anim style="margin-bottom:clamp(26px,5vh,52px);">
+        <span style="display:flex;align-items:center;gap:12px;font-weight:800;font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:#ab7cbe;"><span style="width:30px;height:1.5px;background:#ab7cbe;"></span>Journey</span>
+        <h2 style="margin:12px 0 0;font-family:'PT Serif',Charter,Cambria,serif;font-weight:700;font-size:clamp(46px,7vw,96px);line-height:0.9;letter-spacing:-0.02em;color:#1c2138;">Experience</h2>
+        <p style="margin:14px 0 0;font-size:13.5px;font-weight:600;color:#5d6377;">Drag the little duck onto a node to unfold that chapter 🐣</p>
+      </div>
+      <div data-duck-zone style="position:relative;padding-top:56px;">
+        <div data-tl-line style="position:absolute;left:calc(-1 * clamp(16px,4vw,64px));right:calc(-1 * clamp(46px,6vw,100px));top:63px;height:2px;background:linear-gradient(90deg,#c8b4e8,#a8c4f0);transform:scaleX(0);transform-origin:left;"></div>
+        <img data-duck src="assets/duck.png" alt="duck" draggable="false" style="position:absolute;left:0;top:8px;width:64px;height:auto;z-index:6;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;filter:drop-shadow(0 8px 14px rgba(0,0,0,0.5));transition:transform .15s;">
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(14px,1.8vw,26px);align-items:start;">
+          <div data-tl data-node="0" style="position:relative;background:#f6f7fc;border-radius:14px;padding:28px 18px 20px;box-shadow:0 22px 46px -26px rgba(0,0,0,0.8);transition:box-shadow .3s;min-height:150px;box-sizing:border-box;display:flex;flex-direction:column;">
+            <span data-dot-node style="position:absolute;left:18px;top:-8px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid #c39ad4;transition:transform .25s, box-shadow .25s;"></span>
+            <div style="font-size:11px;font-weight:800;color:#8b90a8;">2025 — Present</div>
+            <div style="font-family:'Source Serif 4','PT Serif',serif;font-weight:700;font-size:16px;margin:6px 0 0;color:#1c2138;line-height:1.15;">Sound Recording — Reid Concert Hall</div>
+            <div data-tl-body style="max-height:0;opacity:0;overflow:hidden;transition:max-height .5s cubic-bezier(.3,.7,.3,1), opacity .4s;">
+              <div style="font-size:11.5px;font-weight:800;color:#e2a6c4;margin:6px 0 8px;">University of Edinburgh</div>
+              <p style="margin:0;font-size:12.5px;line-height:1.55;color:#535a72;">Stereo recording with ORTF &amp; XY techniques, then editing and mixing to a clean master.</p>
+            </div>
+          </div>
+          <div data-tl data-node="1" style="position:relative;background:#f6f7fc;border-radius:14px;padding:28px 18px 20px;box-shadow:0 22px 46px -26px rgba(0,0,0,0.8);transition:box-shadow .3s;min-height:150px;box-sizing:border-box;display:flex;flex-direction:column;">
+            <span data-dot-node style="position:absolute;left:18px;top:-8px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid #c39ad4;transition:transform .25s, box-shadow .25s;"></span>
+            <div style="font-size:11px;font-weight:800;color:#8b90a8;">2024 — Present</div>
+            <div style="font-family:'Source Serif 4','PT Serif',serif;font-weight:700;font-size:16px;margin:6px 0 0;color:#1c2138;line-height:1.15;">Music Content Creator</div>
+            <div data-tl-body style="max-height:0;opacity:0;overflow:hidden;transition:max-height .5s cubic-bezier(.3,.7,.3,1), opacity .4s;">
+              <div style="font-size:11.5px;font-weight:800;color:#e2a6c4;margin:6px 0 8px;">Bilibili · Rednote</div>
+              <p style="margin:0;font-size:12.5px;line-height:1.55;color:#535a72;">Music-tech and arrangement content for Chinese-speaking audiences — 230K+ views.</p>
+            </div>
+          </div>
+          <div data-tl data-node="2" style="position:relative;background:#f6f7fc;border-radius:14px;padding:28px 18px 20px;box-shadow:0 22px 46px -26px rgba(0,0,0,0.8);transition:box-shadow .3s;min-height:150px;box-sizing:border-box;display:flex;flex-direction:column;">
+            <span data-dot-node style="position:absolute;left:18px;top:-8px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid #c39ad4;transition:transform .25s, box-shadow .25s;"></span>
+            <div style="font-size:11px;font-weight:800;color:#8b90a8;">2023 — Present</div>
+            <div style="font-family:'Source Serif 4','PT Serif',serif;font-weight:700;font-size:16px;margin:6px 0 0;color:#1c2138;line-height:1.15;">Volunteer — One World Shop</div>
+            <div data-tl-body style="max-height:0;opacity:0;overflow:hidden;transition:max-height .5s cubic-bezier(.3,.7,.3,1), opacity .4s;">
+              <div style="font-size:11.5px;font-weight:800;color:#e2a6c4;margin:6px 0 8px;">Edinburgh</div>
+              <p style="margin:0;font-size:12.5px;line-height:1.55;color:#535a72;">Fair-trade retail — front of house, merchandising, and community events.</p>
+            </div>
+          </div>
+          <div data-tl data-node="3" style="position:relative;background:#f6f7fc;border-radius:14px;padding:28px 18px 20px;box-shadow:0 22px 46px -26px rgba(0,0,0,0.8);transition:box-shadow .3s;min-height:150px;box-sizing:border-box;display:flex;flex-direction:column;">
+            <span data-dot-node style="position:absolute;left:18px;top:-8px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid #eebbd2;transition:transform .25s, box-shadow .25s;"></span>
+            <div style="font-size:11px;font-weight:800;color:#8b90a8;">2022 — 2023</div>
+            <div style="font-family:'Source Serif 4','PT Serif',serif;font-weight:700;font-size:16px;margin:6px 0 0;color:#1c2138;line-height:1.15;">Publicity &amp; Social Media</div>
+            <div data-tl-body style="max-height:0;opacity:0;overflow:hidden;transition:max-height .5s cubic-bezier(.3,.7,.3,1), opacity .4s;">
+              <div style="font-size:11.5px;font-weight:800;color:#e2a6c4;margin:6px 0 8px;">EUCSA</div>
+              <p style="margin:0;font-size:12.5px;line-height:1.55;color:#535a72;">Ran publicity and social channels for the Chinese Students' Association.</p>
+            </div>
+          </div>
+          <div data-tl data-node="4" style="position:relative;background:#f6f7fc;border-radius:14px;padding:28px 18px 20px;box-shadow:0 22px 46px -26px rgba(0,0,0,0.8);transition:box-shadow .3s;min-height:150px;box-sizing:border-box;display:flex;flex-direction:column;">
+            <span data-dot-node style="position:absolute;left:18px;top:-8px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid #eebbd2;transition:transform .25s, box-shadow .25s;"></span>
+            <div style="font-size:11px;font-weight:800;color:#8b90a8;">2010 — Present</div>
+            <div style="font-family:'Source Serif 4','PT Serif',serif;font-weight:700;font-size:16px;margin:6px 0 0;color:#1c2138;line-height:1.15;">14 Years on Stage</div>
+            <div data-tl-body style="max-height:0;opacity:0;overflow:hidden;transition:max-height .5s cubic-bezier(.3,.7,.3,1), opacity .4s;">
+              <div style="font-size:11.5px;font-weight:800;color:#e2a6c4;margin:6px 0 8px;">Vocal &amp; stage performance</div>
+              <p style="margin:0;font-size:12.5px;line-height:1.55;color:#535a72;">Long-running vocal and stage experience, plus studio crew and radio announcing.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CONTACT ============ -->
+  <div data-page="contact" data-screen-label="Contact" data-active="{{ show.contact }}" data-scrollable style="position:absolute;inset:0;z-index:1;overflow-y:auto;overflow-x:hidden;background:linear-gradient(170deg,#f6dcc9 0%,#f7f0cd 22%,#d9f0dd 44%,#cfe4f9 66%,#c9d4f6 84%,#dfe7fb 100%);">
+    <span style="position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 90% 34% at 50% 46%,rgba(255,255,255,0.65),transparent 70%),radial-gradient(ellipse 70% 22% at 42% 62%,rgba(255,255,255,0.5),transparent 70%),radial-gradient(circle at 12% 8%,rgba(248,206,178,0.55),transparent 40%),radial-gradient(circle at 88% 90%,rgba(180,198,246,0.6),transparent 46%);pointer-events:none;"></span>
+    <div style="position:relative;min-height:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:center;padding:clamp(68px,8vh,102px) clamp(46px,6vw,100px) clamp(48px,7vh,82px) clamp(20px,5vw,76px);">
+
+      <div data-card style="position:relative;z-index:3;width:min(720px,100%);">
+        <div style="position:relative;background:#eef1fb;border-radius:30px;padding:clamp(34px,4.5vw,58px) clamp(34px,5vw,68px);box-shadow:0 56px 130px -42px rgba(0,0,0,0.85);">
+          <div data-anim style="display:flex;flex-direction:column;">
+            <div style="border-top:2px solid #c39ad4;padding-top:14px;"></div>
+            <h2 style="margin:0;font-family:'PT Serif',Charter,Cambria,serif;font-weight:700;font-size:clamp(34px,4vw,52px);line-height:1.0;color:#c39ad4;">Send letter to me!</h2>
+            <div style="border-bottom:2px solid #c39ad4;margin-top:14px;"></div>
+            <div style="margin-top:26px;display:flex;flex-direction:column;">
+              <label style="display:flex;align-items:center;gap:16px;padding:14px 2px;">
+                <span style="flex:none;width:120px;font-family:'Caveat',cursive;font-size:27px;color:#c39ad4;line-height:1;">name</span>
+                <input data-letter-name type="text" placeholder="Your name…" style="flex:1;min-width:0;background:transparent;border:none;outline:none;border-bottom:1.5px solid rgba(195,154,212,0.35);padding:6px 2px;font-family:inherit;font-size:15px;color:#1c2138;">
+              </label>
+              <div style="border-top:1.5px dashed rgba(195,154,212,0.45);"></div>
+              <label style="display:flex;align-items:center;gap:16px;padding:14px 2px;">
+                <span style="flex:none;width:120px;font-family:'Caveat',cursive;font-size:27px;color:#c39ad4;line-height:1;">your email</span>
+                <input data-letter-email type="email" placeholder="you@example.com" style="flex:1;min-width:0;background:transparent;border:none;outline:none;border-bottom:1.5px solid rgba(195,154,212,0.35);padding:6px 2px;font-family:inherit;font-size:15px;color:#1c2138;">
+              </label>
+              <div style="border-top:1.5px dashed rgba(195,154,212,0.45);"></div>
+              <label style="display:flex;align-items:flex-start;gap:16px;padding:14px 2px;">
+                <span style="flex:none;width:120px;font-family:'Caveat',cursive;font-size:27px;color:#c39ad4;line-height:1;padding-top:4px;">content</span>
+                <textarea data-letter-content rows="3" placeholder="Write your letter here…" style="flex:1;min-width:0;background:transparent;border:none;outline:none;border-bottom:1.5px solid rgba(195,154,212,0.35);padding:6px 2px;font-family:inherit;font-size:15px;color:#1c2138;resize:vertical;min-height:64px;line-height:1.5;"></textarea>
+              </label>
+            </div>
+
+            <a data-letter-send href="mailto:hello@songqi.studio" style="align-self:flex-end;display:inline-block;margin-top:30px;font-family:'Caveat',cursive;font-size:26px;font-weight:700;color:#c39ad4;text-decoration:none;padding:8px 26px;border:2.5px solid #c39ad4;border-radius:8px 10px 9px 11px;transform:rotate(-1deg);background:#eef1fb;box-shadow:2px 3px 0 rgba(195,154,212,0.25);">let's chat!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { page: 'home' };
+
+  renderVals() {
+    const p = this.state.page;
+    return {
+      show: { home: p === 'home', about: p === 'about', work: p === 'work', skills: p === 'skills', experience: p === 'experience', contact: p === 'contact', },
+      goPage: (name) => this.showPage(name),
+      goWork: () => this.showPage('work')
+    };
+  }
+
+  componentDidMount() {
+    this.scope = document.querySelector('[data-app]') || document;
+    this.current = 'home';
+    this.ALBUMS = [
+      { id: '01', tag: 'Original', title: 'Spring', audio: 'assets/spring.mp3', meta: 'Original Track', year: '2025', role: 'Composer · Producer', mood: 'Fresh blossoms, light steps, and a season waking up.', body: '#b48ab2', reel: '#e4bcd8', label: '#d9e4ff' },
+      { id: '02', tag: 'Original', title: 'Crash', audio: 'assets/campus-song.mp3', meta: 'Original Track', year: '2025', role: 'Composer · Producer', mood: 'Campus afternoons, warm memories, and a familiar silhouette.', body: '#2d3764', reel: '#7195e5', label: '#d7e0f8' },
+      { id: '03', tag: 'Original', title: 'Dream', audio: 'assets/dream.wav', meta: 'Original Track', year: '2025', role: 'Composer · Producer', mood: 'Half-lit thoughts drifting somewhere between night and morning.', body: '#513ca8', reel: '#9d8cff', label: '#ebe5ff' },
+      { id: '04', tag: 'Original', title: 'Sky', audio: 'assets/sky.mp3', meta: 'Original Track', year: '2025', role: 'Composer · Producer', mood: 'Wide open air, slow clouds, and room to breathe.', body: '#103844', reel: '#2d98b3', label: '#dcf4fa' },
+      { id: '05', tag: 'Original', title: 'Golden Sunset', audio: 'assets/shaonian-de-meng.mp3', meta: 'Original Track', year: '2025', role: 'Composer · Producer', mood: 'A young dream held tight, chasing light with both hands.', body: '#40263c', reel: '#b56ea8', label: '#f8e0f4' },
+    ];
+
+    this.pages = {};
+    this.q('[data-page]').forEach(p => this.pages[p.dataset.page] = p);
+
+    this.wireNav();
+    this.initDock();
+    this.wireDuck();
+    this.wireLetter();
+    this.wirePolaroid();
+    this.wirePiano();
+    this.wireChecks();
+    this.initSkillsDrag();
+    this.initSkillsRuler();
+    this.initAboutFold();
+    this.initWork();
+    this.initDissolve();
+
+    this.applyChrome('home');
+    this.waitFor(() => window.gsap, 4500).then(() => { this._g = true; this.animatePage('home'); }).catch(() => {});
+  }
+
+  componentDidUpdate() {
+    if (this._renderedPage !== this.state.page) {
+      this._renderedPage = this.state.page;
+      const name = this.state.page;
+      this.current = name;
+      const page = this.pages[name];
+      if (page) page.scrollTop = 0;
+      this.applyChrome(name);
+      if (this._g) this.animatePage(name);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this._raf) cancelAnimationFrame(this._raf);
+    if (this._onKey) document.removeEventListener('keydown', this._onKey);
+    if (this._onResize) window.removeEventListener('resize', this._onResize);
+    if (this._aboutScroll) this.pages.about.removeEventListener('scroll', this._aboutScroll);
+    if (this._onDissolveMove && this.pages.home) this.pages.home.removeEventListener('mousemove', this._onDissolveMove);
+  }
+
+  q(sel) { return Array.from(this.scope.querySelectorAll(sel)); }
+  waitFor(cond, t) { return new Promise((res, rej) => { const t0 = Date.now(); const id = setInterval(() => { if (cond()) { clearInterval(id); res(); } else if (Date.now() - t0 > t) { clearInterval(id); rej(); } }, 40); }); }
+
+  // ---------- duck timeline ----------
+  wirePolaroid() {
+    const pol = this.scope.querySelector('[data-polaroid]');
+    if (!pol) return;
+    let y = 0, dragging = false, startY = 0, startVal = 0;
+    const MAX = 170;
+    const apply = () => { pol.style.transform = 'translate(-50%,' + y + 'px)'; };
+    pol.addEventListener('pointerdown', (e) => {
+      dragging = true; startY = e.clientY; startVal = y;
+      pol.setPointerCapture(e.pointerId);
+      pol.style.cursor = 'grabbing';
+      pol.style.transition = 'none';
+      e.preventDefault();
+    });
+    pol.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      y = Math.max(0, Math.min(MAX, startVal + (e.clientY - startY) * 1.8));
+      apply();
+    });
+    const end = () => {
+      if (!dragging) return;
+      dragging = false;
+      pol.style.cursor = 'grab';
+      pol.style.transition = 'transform .45s cubic-bezier(.3,1.2,.4,1)';
+      y = y > MAX * 0.3 ? MAX : 0;
+      apply();
+    };
+    pol.addEventListener('pointerup', end);
+    pol.addEventListener('pointercancel', end);
+    pol.addEventListener('click', () => {
+      if (Math.abs(y) < 4 || y === MAX) {
+        pol.style.transition = 'transform .45s cubic-bezier(.3,1.2,.4,1)';
+        y = y === MAX ? 0 : MAX;
+        apply();
+      }
+    });
+  }
+
+  wireLetter() {
+    const send = this.scope.querySelector('[data-letter-send]');
+    if (!send) return;
+    send.addEventListener('click', () => {
+      const v = (sel) => { const e = this.scope.querySelector(sel); return e ? e.value.trim() : ''; };
+      const name = v('[data-letter-name]');
+      const email = v('[data-letter-email]');
+      const content = v('[data-letter-content]');
+      const subject = encodeURIComponent('Letter from ' + (name || 'a visitor'));
+      const body = encodeURIComponent(content + (email ? '\n\nFrom: ' + name + ' <' + email + '>' : ''));
+      send.href = 'mailto:hello@songqi.studio?subject=' + subject + '&body=' + body;
+    });
+  }
+
+  wireDuck() {
+    const zone = this.scope.querySelector('[data-duck-zone]');
+    const duck = this.scope.querySelector('[data-duck]');
+    if (!zone || !duck) return;
+    const nodes = Array.from(zone.querySelectorAll('[data-node]'));
+    const openCard = (card) => {
+      const body = card.querySelector('[data-tl-body]');
+      const dot = card.querySelector('[data-dot-node]');
+      if (body) { body.style.maxHeight = '260px'; body.style.opacity = '1'; }
+      if (dot) { dot.style.transform = 'scale(1.35)'; dot.style.boxShadow = '0 0 0 6px rgba(171,124,190,0.3)'; }
+    };
+    const closeCard = (card) => {
+      const body = card.querySelector('[data-tl-body]');
+      const dot = card.querySelector('[data-dot-node]');
+      if (body) { body.style.maxHeight = '0'; body.style.opacity = '0'; }
+      if (dot) { dot.style.transform = ''; dot.style.boxShadow = ''; }
+    };
+    const nodeXs = () => {
+      const zr = zone.getBoundingClientRect();
+      return nodes.map(card => {
+        const dot = card.querySelector('[data-dot-node]');
+        const dr = dot.getBoundingClientRect();
+        return dr.left - zr.left + dr.width / 2;
+      });
+    };
+    const clampX = (x) => Math.max(0, Math.min(zone.clientWidth - duck.offsetWidth, x));
+    const setDuck = (x) => { duck.style.left = clampX(x) + 'px'; this._duckX = clampX(x); };
+    const centerOn = (nodeX) => nodeX - duck.offsetWidth / 2;
+    this._duckNode = 0;
+    const settle = (animate) => {
+      const xs = nodeXs();
+      const target = centerOn(xs[this._duckNode]);
+      if (animate) {
+        duck.style.transition = 'left .35s cubic-bezier(.3,1.4,.4,1)';
+        setTimeout(() => { duck.style.transition = ''; }, 380);
+      }
+      setDuck(target);
+      nodes.forEach((card, i) => { if (i === this._duckNode) openCard(card); else closeCard(card); });
+    };
+    requestAnimationFrame(() => settle(false));
+    let dragging = false, startX = 0, startLeft = 0;
+    duck.addEventListener('pointerdown', (e) => {
+      dragging = true; startX = e.clientX; startLeft = this._duckX || 0;
+      duck.setPointerCapture(e.pointerId);
+      duck.style.cursor = 'grabbing';
+      duck.style.transform = 'scale(1.12) rotate(-6deg)';
+      e.preventDefault();
+    });
+    duck.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      setDuck(startLeft + (e.clientX - startX));
+      // while dragging: only the node under the duck opens
+      const duckCenter = this._duckX + duck.offsetWidth / 2;
+      const xs = nodeXs();
+      nodes.forEach((card, i) => {
+        if (Math.abs(duckCenter - xs[i]) < 40) openCard(card); else closeCard(card);
+      });
+    });
+    const end = () => {
+      if (!dragging) return;
+      dragging = false;
+      duck.style.cursor = 'grab';
+      duck.style.transform = '';
+      const duckCenter = this._duckX + duck.offsetWidth / 2;
+      const xs = nodeXs();
+      let best = -1, bestD = Infinity;
+      xs.forEach((x, i) => { const d = Math.abs(duckCenter - x); if (d < bestD) { bestD = d; best = i; } });
+      if (best >= 0 && bestD < 48) this._duckNode = best; // valid drop
+      settle(true); // otherwise springs back to previous node
+    };
+    duck.addEventListener('pointerup', end);
+    duck.addEventListener('pointercancel', end);
+    window.addEventListener('resize', () => settle(false));
+  }
+
+  // ---------- navigation ----------
+  wireNav() {
+    this.q('[data-go]').forEach(b => b.addEventListener('click', () => this.showPage(b.dataset.go)));
+  }
+
+  showPage(name) {
+    if (this._previewAudio && !this._previewAudio.paused) { this._previewAudio.pause(); this.updatePlayBtn(); }
+    if (!this.pages[name]) return;
+    this.current = name;
+    this.setState({ page: name });
+    this.setActiveDot(name);
+    requestAnimationFrame(() => {
+      this._renderedPage = name;
+      const page = this.pages[name];
+      if (page) page.scrollTop = 0;
+      this.setActiveDot(name);
+      if (this._g) this.animatePage(name);
+    });
+  }
+
+  applyChrome(name) {
+    this.setActiveDot(name);
+  }
+
+  // ---------- dock orb + tooltips ----------
+  initDock() {
+    const dock = this.scope.querySelector('[data-dock]');
+    this.dots = this.q('[data-dot]');
+    this.orb = dock.querySelector('[data-orb]');
+    this.orbGlow = dock.querySelector('[data-orb-glow]');
+    this.dots.forEach(d => {
+      const tip = d.querySelector('[data-tip]');
+      d.addEventListener('mouseenter', () => { if (tip) tip.style.opacity = '1'; });
+      d.addEventListener('mouseleave', () => { if (tip) tip.style.opacity = '0'; });
+    });
+    requestAnimationFrame(() => this.setActiveDot('home'));
+    this._onResize = () => { this.setActiveDot(this.current); this.sizeWave(); };
+    window.addEventListener('resize', this._onResize);
+  }
+
+  setActiveDot(view) {
+    if (!this.dots) return;
+    const act = this.dots.find(d => d.dataset.go === view);
+    if (act && this.orb) {
+      const y = act.offsetTop + act.offsetHeight / 2;
+      this.orb.style.transform = `translateY(${y}px)`;
+      if (this.orbGlow) this.orbGlow.style.transform = `translateY(${y}px)`;
+    }
+  }
+
+  // ---------- audio ----------
+  ensureAudio() {
+    if (!this.actx) { try { this.actx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return null; } }
+    if (this.actx.state === 'suspended') this.actx.resume();
+    return this.actx;
+  }
+  playNote(freq) {
+    const ctx = this.ensureAudio();
+    if (!ctx || !freq) return;
+    const now = ctx.currentTime;
+    const master = ctx.createGain();
+    master.gain.setValueAtTime(0.0001, now);
+    master.gain.exponentialRampToValueAtTime(0.3, now + 0.012);
+    master.gain.exponentialRampToValueAtTime(0.0001, now + 1.7);
+    master.connect(ctx.destination);
+    [[1, 1], [2, 0.42], [3, 0.2]].forEach(([mult, amp]) => {
+      const o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = freq * mult;
+      const g = ctx.createGain(); g.gain.value = amp;
+      o.connect(g); g.connect(master); o.start(now); o.stop(now + 1.8);
+    });
+  }
+  flashKey(el) {
+    if (!el) return;
+    el.style.transition = 'transform .08s ease, filter .08s ease';
+    el.style.transform = 'translateY(3px)';
+    el.style.filter = el.hasAttribute('data-black') ? 'brightness(1.6)' : 'brightness(0.96)';
+    clearTimeout(el._ft);
+    el._ft = setTimeout(() => { el.style.filter = ''; el.style.transform = ''; }, 150);
+  }
+  wirePiano() {
+    const keys = this.q('[data-pkey]');
+    keys.forEach(k => k.addEventListener('click', () => { this.playNote(parseFloat(k.dataset.note)); this.flashKey(k); }));
+    const byKey = {};
+    keys.forEach(k => { if (k.dataset.sc) byKey[k.dataset.sc] = k; });
+    this._onKey = (e) => {
+      const t = e.target;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
+      if (this.current !== '__none__') return;
+      const el = byKey[e.key.toLowerCase()];
+      if (el) { this.playNote(parseFloat(el.dataset.note)); this.flashKey(el); e.preventDefault(); }
+    };
+    document.addEventListener('keydown', this._onKey);
+  }
+
+  // ---------- contact checklist ----------
+  wireChecks() {
+    this.q('[data-check]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const box = btn.querySelector('[data-box]');
+        if (!box) return;
+        const on = box.textContent === '✓';
+        box.textContent = on ? '' : '✓';
+        box.style.background = on ? 'transparent' : '#c39ad4';
+        box.style.color = on ? '#c39ad4' : '#fff';
+      });
+    });
+  }
+
+  // ---------- skills ----------
+  initSkillsRuler() {
+    const r = this.scope.querySelector('[data-ruler]');
+    if (!r) return;
+    for (let i = 1; i <= 18; i++) { const s = document.createElement('span'); s.textContent = i; r.appendChild(s); }
+  }
+  initSkillsDrag() {
+    this._pinZ = 40;
+    this.q('[data-page="skills"] [data-pin]').forEach(card => {
+      const m = /rotate\(([-\d.]+)deg\)/.exec(card.style.transform || '');
+      const rot = m ? parseFloat(m[1]) : 0;
+      card.style.cursor = 'grab';
+      card.style.touchAction = 'none';
+      let x = 0, y = 0, sx = 0, sy = 0, dragging = false;
+      const apply = () => { card.style.transform = `translate(${x}px,${y}px) rotate(${rot}deg)`; };
+      card.addEventListener('pointerdown', (e) => {
+        dragging = true; card.style.cursor = 'grabbing'; card.style.transition = 'none';
+        card.style.zIndex = ++this._pinZ; card.style.boxShadow = '0 34px 60px -20px rgba(0,0,0,0.8)';
+        sx = e.clientX - x; sy = e.clientY - y;
+        try { card.setPointerCapture(e.pointerId); } catch (err) {}
+        e.preventDefault();
+      });
+      card.addEventListener('pointermove', (e) => { if (!dragging) return; x = e.clientX - sx; y = e.clientY - sy; apply(); });
+      const end = () => { if (!dragging) return; dragging = false; card.style.cursor = 'grab'; card.style.boxShadow = '0 22px 40px -18px rgba(0,0,0,0.7)'; };
+      card.addEventListener('pointerup', end);
+      card.addEventListener('pointercancel', end);
+    });
+  }
+
+  // ---------- dashboard water-ink dissolve ----------
+  initDissolve() {
+    const page = this.pages.home;
+    const layer = this.scope.querySelector('[data-dissolve]');
+    if (!page || !layer) return;
+    this._onDissolveMove = (e) => {
+      const r = page.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width) * 100;
+      const y = ((e.clientY - r.top) / r.height) * 100;
+      layer.style.setProperty('--mx', x + '%');
+      layer.style.setProperty('--my', y + '%');
+    };
+    page.addEventListener('mousemove', this._onDissolveMove);
+  }
+
+  // ---------- about fold / page-turn ----------
+  initAboutFold() {
+    const page = this.pages.about;
+    const s1 = this.scope.querySelector('[data-sheet="1"]');
+    const s2 = this.scope.querySelector('[data-sheet="2"]');
+    const hint = this.scope.querySelector('[data-fold-hint]');
+    if (!page || !s1) return;
+    this._aboutScroll = () => {
+      const max = Math.max(page.scrollHeight - page.clientHeight, 1);
+      const p = Math.min(page.scrollTop / (max * 0.55), 1);
+      s1.style.transform = `rotateX(${-p * 34}deg)`;
+      s1.style.opacity = String(1 - p * 0.45);
+      if (s2) s2.style.transform = `rotateX(${(1 - p) * 22}deg)`;
+      if (hint) hint.style.opacity = String(1 - p);
+    };
+    page.addEventListener('scroll', this._aboutScroll, { passive: true });
+    requestAnimationFrame(this._aboutScroll);
+  }
+
+  // ---------- reveal animations ----------
+  animatePage(name) {
+    const g = window.gsap;
+    if (!g) return;
+    const page = this.pages[name];
+    if (!page) return;
+    if (name === 'home') {
+      const els = page.querySelectorAll('[data-d]');
+      if (els.length) {
+        g.fromTo(els, { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, stagger: 0.11, ease: 'expo.out' });
+        clearTimeout(this._homeRevealFix);
+        this._homeRevealFix = setTimeout(() => { g.set(els, { clearProps: 'opacity,transform' }); }, 1600);
+      }
+      return;
+    }
+    if (name === 'experience') {
+      const line = page.querySelector('[data-tl-line]');
+      if (line) g.fromTo(line, { scaleX: 0 }, { scaleX: 1, duration: 1.0, ease: 'power3.out' });
+      g.fromTo(page.querySelectorAll('[data-anim]'), { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' });
+      g.fromTo(page.querySelectorAll('[data-tl]'), { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, stagger: 0.09, ease: 'power3.out', delay: 0.15 });
+      return;
+    }
+    if (name === 'skills') { g.fromTo(page.querySelectorAll('[data-pin]'), { y: 40, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.07, ease: 'power3.out', clearProps: 'opacity' }); g.fromTo(page.querySelectorAll('[data-anim]'), { opacity: 0 }, { opacity: 1, duration: 0.6 }); return; }
+    if (name === 'about') {
+      g.fromTo(page.querySelectorAll('[data-sheet="1"] [data-anim]'), { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, stagger: 0.1, ease: 'power3.out' });
+      const marks = page.querySelectorAll('[data-mark]');
+      if (marks.length) g.fromTo(marks, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.7, stagger: 0.45, ease: 'power2.inOut', delay: 0.9 });
+      const hls = page.querySelectorAll('[data-mark-hl]');
+      if (hls.length) g.fromTo(hls, { backgroundSize: '0% 88%' }, { backgroundSize: '100% 88%', duration: 0.6, ease: 'power2.inOut', delay: 2.1 });
+      return;
+    }
+    const items = page.querySelectorAll('[data-anim]');
+    if (items.length) g.fromTo(items, { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, stagger: 0.09, ease: 'power3.out' });
+  }
+
+  // ---------- WORK: waveform + cassette arc rail ----------
+  initWork() {
+    this.canvas = this.scope.querySelector('[data-wave]');
+    if (this.canvas) { this.wctx = this.canvas.getContext('2d'); this.sizeWave(); }
+    this._wt = 0;
+    this.rail = this.scope.querySelector('[data-cass-rail]');
+    this.CASS_H = 150; this.SLOT = 176;
+    this.offY = 0; this.spd = 26; this.cur = 26; this._hoverKey = null;
+    this.cassCards = this.rail ? this.buildCassettePool() : [];
+    this.selectAlbum('01');
+    this._lastT = 0;
+    const play = this.scope.querySelector('[data-d-play]');
+    if (play) {
+      this._previewAudio = new Audio();
+      this._previewAudio.addEventListener('ended', () => this.updatePlayBtn());
+      this.wireSeek();
+      play.addEventListener('click', () => {
+        const al = this.ALBUMS.find(a => a.id === this.selectedId);
+        if (al && al.audio) {
+          const src = new URL(al.audio, location.href).href;
+          if (this._previewAudio.src !== src) { this._previewAudio.src = src; this._previewAudio.load(); }
+          if (this._previewAudio.paused) { this._previewAudio.play().catch(() => {}); }
+          else { this._previewAudio.pause(); }
+          this.updatePlayBtn();
+        } else {
+          this.playNote(330);
+        }
+      });
+    }
+    this.layoutRail();
+    if (this.wctx) this.drawWave();
+    this.tick = this.tick.bind(this);
+    this._raf = requestAnimationFrame(this.tick);
+  }
+
+  tick(t) {
+    this._raf = requestAnimationFrame(this.tick);
+    const work = document.querySelector('[data-page="work"]');
+    if (!work || work.getAttribute('data-active') !== 'true') { this._lastT = t; return; }
+    if (!this._lastT) this._lastT = t;
+    const dt = Math.min((t - this._lastT) / 1000, 0.05); this._lastT = t;
+    // waveform
+    if (this.wctx) { this._wt += dt * 1.2; this.drawWave(); }
+    // cassette rail
+    if (this.rail && this.cassCards.length) {
+      const slow = this._hoverKey ? 0.06 : 1;
+      this.cur += (this.spd * slow - this.cur) * Math.min(1, dt * 3.2);
+      this.offY += this.cur * dt;
+      const cyc = this.ALBUMS.length * this.SLOT;
+      if (this.offY > 0) this.offY -= cyc; if (this.offY < -cyc) this.offY += cyc;
+      this.layoutRail();
+    }
+  }
+
+  sizeWave() {
+    if (!this.canvas) return;
+    const r = this.canvas.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    this.canvas.width = Math.max(r.width, 1) * dpr;
+    this.canvas.height = Math.max(r.height, 1) * dpr;
+    this.wctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    this._wW = r.width; this._wH = r.height;
+  }
+  drawWave() {
+    const ctx = this.wctx, W = this._wW, H = this._wH;
+    if (!ctx || !W) return;
+    ctx.clearRect(0, 0, W, H);
+    const waves = [{ a: H * 0.11, f: 0.006, s: 1.0, c: 'rgba(195,154,212,0.55)', o: 0 }, { a: H * 0.08, f: 0.009, s: -1.4, c: 'rgba(154,123,240,0.4)', o: 1.4 }, { a: H * 0.06, f: 0.013, s: 1.8, c: 'rgba(200,210,245,0.3)', o: 3 }];
+    waves.forEach(w => {
+      ctx.beginPath();
+      for (let x = 0; x <= W; x += 6) {
+        const y = H / 2 + Math.sin(x * w.f + this._wt * w.s + w.o) * w.a + Math.sin(x * w.f * 2.3 + this._wt * w.s * 0.7) * w.a * 0.35;
+        if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = w.c; ctx.lineWidth = 2; ctx.stroke();
+    });
+  }
+
+  buildCassettePool() {
+    const cards = [];
+    for (let copy = -1; copy <= 1; copy++) {
+      this.ALBUMS.forEach((al, index) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.style.cssText = 'position:absolute;left:0;top:0;border:none;background:none;padding:0;cursor:pointer;pointer-events:auto;will-change:transform;transition:filter .3s;';
+        btn.appendChild(this.buildCassette(al));
+        btn.addEventListener('mouseenter', () => { this.hoveredId = al.id + ':' + copy + ':' + index; this._hoverKey = al.id; });
+        btn.addEventListener('mouseleave', () => { this.hoveredId = null; this._hoverKey = null; });
+        btn.addEventListener('click', () => this.selectAlbum(al.id));
+        this.rail.appendChild(btn);
+        cards.push({ el: btn, album: al, copy, index });
+      });
+    }
+    return cards;
+  }
+
+  buildCassette(al) {
+    const el = document.createElement('div');
+    el.dataset.cid = al.id;
+    el.style.cssText = `position:relative;width:250px;height:${this.CASS_H}px;border-radius:12px;box-sizing:border-box;padding:16px 18px;overflow:hidden;background:linear-gradient(160deg,${al.reel} -40%,${al.body} 55%,#0c0f18 150%);border:1px solid rgba(255,255,255,0.16);box-shadow:0 22px 40px -24px rgba(0,0,0,0.8);color:#fff;transition:transform .4s cubic-bezier(.22,1,.36,1),box-shadow .4s;`;
+    el.innerHTML =
+      `<div style="display:flex;justify-content:space-between;align-items:center;font-size:9.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.9;"><span>${al.tag}</span><span>${al.year}</span></div>` +
+      `<div style="margin-top:8px;height:56px;border-radius:8px;background:${al.label};display:flex;align-items:center;justify-content:space-around;padding:0 16px;">` +
+        `<span data-reel style="width:34px;height:34px;border-radius:50%;border:5px solid rgba(20,20,30,0.35);border-top-color:${al.body};background:radial-gradient(circle,#fff 30%,rgba(20,20,30,0.25) 32%);display:block;"></span>` +
+        `<span style="flex:1;height:5px;margin:0 10px;border-radius:5px;background:repeating-linear-gradient(90deg,rgba(20,20,30,0.28) 0 3px,transparent 3px 7px);"></span>` +
+        `<span data-reel style="width:34px;height:34px;border-radius:50%;border:5px solid rgba(20,20,30,0.35);border-top-color:${al.body};background:radial-gradient(circle,#fff 30%,rgba(20,20,30,0.25) 32%);display:block;"></span>` +
+      `</div>` +
+      `<div style="margin-top:9px;display:flex;justify-content:space-between;align-items:flex-end;"><strong style="font-family:'PT Serif',Charter,serif;font-weight:700;font-size:17px;line-height:1;max-width:74%;">${al.title}</strong><span style="font-size:8.5px;font-weight:700;opacity:.65;">№ ${al.id}</span></div>`;
+    return el;
+  }
+
+  wireSeek() {
+    const a = this._previewAudio;
+    const row = this.scope.querySelector('[data-seek-row]');
+    const track = this.scope.querySelector('[data-seek]');
+    const fill = this.scope.querySelector('[data-seek-fill]');
+    const knob = this.scope.querySelector('[data-seek-knob]');
+    const cur = this.scope.querySelector('[data-seek-cur]');
+    const dur = this.scope.querySelector('[data-seek-dur]');
+    if (!row || !track) return;
+    const fmt = (s) => { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+    const paint = () => {
+      const p = a.duration ? (a.currentTime / a.duration) * 100 : 0;
+      fill.style.width = p + '%';
+      knob.style.left = p + '%';
+      cur.textContent = fmt(a.currentTime);
+      dur.textContent = fmt(a.duration);
+    };
+    a.addEventListener('timeupdate', paint);
+    a.addEventListener('loadedmetadata', paint);
+    let scrubbing = false;
+    const seekTo = (clientX) => {
+      const r = track.getBoundingClientRect();
+      const p = Math.max(0, Math.min(1, (clientX - r.left) / r.width));
+      if (a.duration) { a.currentTime = p * a.duration; paint(); }
+    };
+    track.addEventListener('pointerdown', (e) => { scrubbing = true; track.setPointerCapture(e.pointerId); seekTo(e.clientX); e.preventDefault(); });
+    track.addEventListener('pointermove', (e) => { if (scrubbing) seekTo(e.clientX); });
+    track.addEventListener('pointerup', () => { scrubbing = false; });
+    track.addEventListener('pointercancel', () => { scrubbing = false; });
+    this._seekRow = row;
+    const cural = this.ALBUMS.find(a => a.id === this.selectedId);
+    row.style.display = cural && cural.audio ? 'flex' : 'none';
+  }
+
+  updatePlayBtn() {
+    const btn = this.scope.querySelector('[data-d-play]');
+    if (!btn) return;
+    const al = this.ALBUMS.find(a => a.id === this.selectedId);
+    const playing = al && al.audio && this._previewAudio && !this._previewAudio.paused;
+    const icon = btn.querySelector('svg');
+    if (icon) icon.innerHTML = playing
+      ? '<rect x="7" y="5" width="4" height="14" rx="1" fill="currentColor"></rect><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"></rect>'
+      : '<path d="M8 6.5v11l9-5.5z" fill="currentColor"></path>';
+    const txt = btn.lastChild;
+    if (txt && txt.nodeType === 3) txt.textContent = playing ? 'Pause preview' : 'Play preview';
+  }
+
+  selectAlbum(id) {
+    const al = this.ALBUMS.find(a => a.id === id);
+    if (!al) return;
+    if (this.selectedId !== id && this._previewAudio) { this._previewAudio.pause(); this._previewAudio.removeAttribute('src'); this._previewAudio.load(); }
+    this.selectedId = id;
+    this.updatePlayBtn();
+    if (this._seekRow) this._seekRow.style.display = al.audio ? 'flex' : 'none';
+    const set = (sel, txt) => { const e = this.scope.querySelector(sel); if (e) e.textContent = txt; };
+    set('[data-d-title]', al.title);
+    set('[data-d-role]', al.role);
+    set('[data-d-mood]', al.mood);
+    set('[data-d-year]', al.year);
+    set('[data-d-meta]', al.meta);
+    const wave = this.scope.querySelector('[data-d-wave]');
+    if (wave) {
+      wave.innerHTML = '';
+      const hs = [30, 62, 44, 88, 54, 72, 40, 96, 60, 78, 46, 84, 34, 68, 50, 90, 42, 74, 58, 82];
+      hs.forEach((h, i) => { const b = document.createElement('i'); b.style.cssText = `display:block;width:5px;height:${h}%;border-radius:6px;background:${i % 3 === 0 ? '#eebbd2' : '#c39ad4'};opacity:${0.5 + (h / 200)};`; wave.appendChild(b); });
+    }
+    if (this.cassCards) this.cassCards.forEach(c => {
+      const cass = c.el.firstChild;
+      if (c.album.id === id) { cass.style.outline = '2px solid rgba(255,255,255,0.85)'; cass.style.boxShadow = '0 26px 46px -22px rgba(195,154,212,0.7)'; }
+      else { cass.style.outline = 'none'; cass.style.boxShadow = '0 22px 40px -24px rgba(0,0,0,0.8)'; }
+    });
+  }
+
+  layoutRail() {
+    const H = this.rail.clientHeight, W = this.rail.clientWidth;
+    if (!H) return;
+    const cyc = this.ALBUMS.length * this.SLOT;
+    const cassW = 250;
+    this.cassCards.forEach(c => {
+      const y = c.index * this.SLOT + c.copy * cyc + this.offY;
+      if (y < -this.CASS_H - 40 || y > H + 40) { c.el.style.display = 'none'; return; }
+      c.el.style.display = 'block';
+      const norm = y / H; // 0..1 across viewport
+      const arc = Math.sin(norm * Math.PI); // bulge outward at middle
+      const x = -30 + arc * (W - cassW + 10);
+      const hov = this._hoverKey === c.album.id;
+      const scale = hov ? 1.12 : 1;
+      c.el.style.zIndex = hov ? 30 : 10;
+      c.el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${(arc - 0.5) * 6}deg) scale(${scale})`;
+    });
+  }
+}
+</script>
+</body>
+</html>
