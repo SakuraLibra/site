@@ -1,0 +1,27 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Vary", "value": "User-Agent" }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(Android|iPhone|iPad|iPod|Mobile|BlackBerry|IEMobile|Opera Mini|Opera Mobi|Windows Phone).*"
+        }
+      ],
+      "destination": "/mobile/:path*"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/desktop/:path*"
+    }
+  ]
+}
