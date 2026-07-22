@@ -1,17 +1,5 @@
 {
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "Vary", "value": "User-Agent" }
-      ]
-    }
-  ],
-  {
-    "framework": null,
-    "buildCommand": "echo no build step",
-    "outputDirectory": "."
-  }
-    }
-  ]
+  "framework": null,
+  "buildCommand": "echo no build step",
+  "outputDirectory": "."
 }
