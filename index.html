@@ -11,16 +11,16 @@
 <script src="./support.js"></script>
 
 <style>
-/* ================= pixel hero ================= */
-.sh-stage{position:relative;width:100%;height:100%;min-height:100%;display:flex;align-items:center;justify-content:center;
-  overflow:hidden;box-sizing:border-box;
-  padding:clamp(18px,4vh,46px) clamp(78px,8vw,140px) clamp(18px,4vh,46px) clamp(18px,3vw,56px);}
-.sh-bg{position:absolute;left:-8%;top:-8%;width:116%;height:116%;object-fit:cover;
-  filter:blur(46px) saturate(1.3) brightness(1.03);opacity:.9;pointer-events:none;}
-.sh-frame{position:relative;height:100%;aspect-ratio:1477/1065;max-width:100%;max-height:100%;
-  isolation:isolate;overflow:hidden;border-radius:16px;
-  box-shadow:0 40px 90px -30px rgba(70,35,55,.55),0 0 0 1px rgba(255,255,255,.22);}
-.sh-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;image-rendering:pixelated;}
+/* ================= pixel hero (full bleed) ================= */
+.sh-stage{position:absolute;inset:0;overflow:hidden;background:#2b2320;}
+
+/* the artwork fills the viewport; the crop anchor is biased upward so the
+   calendar, monitor, piano and figure all keep a clickable area on very
+   wide screens. tune --sh-anchor if your display is a different shape. */
+.sh-stage{--sh-anchor:32%;}
+.sh-art{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center var(--sh-anchor);
+  image-rendering:pixelated;}
 
 .sh-shafts{position:absolute;inset:-25%;pointer-events:none;mix-blend-mode:screen;opacity:.5;
   transform:rotate(22deg);
@@ -34,66 +34,32 @@
   50%{opacity:.6;transform:rotate(22deg) translateX(1.2%)}}
 
 .sh-dapple{position:absolute;inset:0;pointer-events:none;mix-blend-mode:soft-light;}
-.sh-dapple i{position:absolute;display:block;border-radius:50%;filter:blur(14px);
+.sh-dapple i{position:absolute;display:block;border-radius:50%;filter:blur(16px);
   background:radial-gradient(circle,rgba(255,240,205,.85),rgba(255,240,205,0) 70%);}
-.sh-d1{left:26%;top:56%;width:16%;height:11%;animation:sh-drift1 17s ease-in-out infinite}
-.sh-d2{left:44%;top:70%;width:12%;height:8%;animation:sh-drift2 23s ease-in-out infinite}
-.sh-d3{left:8%;top:74%;width:19%;height:12%;animation:sh-drift1 29s ease-in-out infinite reverse}
-.sh-d4{left:62%;top:18%;width:14%;height:10%;animation:sh-drift2 19s ease-in-out infinite}
+.sh-d1{left:30%;top:52%;width:13%;height:16%;animation:sh-drift1 17s ease-in-out infinite}
+.sh-d2{left:46%;top:66%;width:10%;height:13%;animation:sh-drift2 23s ease-in-out infinite}
+.sh-d3{left:14%;top:70%;width:15%;height:18%;animation:sh-drift1 29s ease-in-out infinite reverse}
+.sh-d4{left:60%;top:16%;width:12%;height:15%;animation:sh-drift2 19s ease-in-out infinite}
 @keyframes sh-drift1{0%,100%{transform:translate(0,0) scale(1);opacity:.45}
-  50%{transform:translate(4%,-2%) scale(1.15);opacity:.8}}
+  50%{transform:translate(3%,-2%) scale(1.15);opacity:.8}}
 @keyframes sh-drift2{0%,100%{transform:translate(0,0) scale(1.1);opacity:.7}
-  50%{transform:translate(-3%,2%) scale(.9);opacity:.4}}
+  50%{transform:translate(-2%,2%) scale(.9);opacity:.4}}
 
 .sh-fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;image-rendering:pixelated;}
 .sh-grade{position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(120% 100% at 30% 30%,rgba(255,228,170,.10),rgba(20,14,30,.28) 100%);}
+  background:radial-gradient(120% 100% at 30% 30%,rgba(255,228,170,.08),rgba(20,14,30,.22) 100%);}
 
-.sh-spot{position:absolute;appearance:none;background:none;border:0;padding:0;margin:0;cursor:pointer;
-  outline:none;z-index:5;transition:backdrop-filter .18s ease,transform .18s ease;}
-.sh-spot:hover,.sh-spot:focus-visible{backdrop-filter:brightness(1.18) saturate(1.12) contrast(1.03);
-  -webkit-backdrop-filter:brightness(1.18) saturate(1.12) contrast(1.03);}
-.sh-spot:active{transform:translateY(2px);}
-.sh-spot::before{content:"";position:absolute;inset:0;opacity:0;transition:opacity .18s ease;
-  background:
-    repeating-linear-gradient(90deg,#fff6e2 0 7px,transparent 7px 14px) left top/100% 3px no-repeat,
-    repeating-linear-gradient(90deg,#fff6e2 0 7px,transparent 7px 14px) left bottom/100% 3px no-repeat,
-    repeating-linear-gradient(180deg,#fff6e2 0 7px,transparent 7px 14px) left top/3px 100% no-repeat,
-    repeating-linear-gradient(180deg,#fff6e2 0 7px,transparent 7px 14px) right top/3px 100% no-repeat;
-  filter:drop-shadow(0 0 3px rgba(255,220,150,.9));}
-.sh-spot:hover::before,.sh-spot:focus-visible::before{opacity:1;animation:sh-ants 1.4s linear infinite;}
-@keyframes sh-ants{to{background-position:14px top,14px bottom,left 14px,right 14px}}
+/* invisible hotspots — no outline, no pin, no label. cursor only. */
+.sh-spot{position:absolute;appearance:none;background:none;border:0;padding:0;margin:0;
+  cursor:pointer;outline:none;z-index:5;-webkit-tap-highlight-color:transparent;}
+.sh-spot::-moz-focus-inner{border:0;}
 
-.sh-pin{position:absolute;left:50%;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;
-  transform:rotate(45deg);background:#fff2d4;
-  box-shadow:0 0 0 3px rgba(96,60,40,.55),0 0 12px rgba(255,215,140,.8);
-  transition:opacity .35s ease;animation:sh-pin 2.4s ease-in-out infinite;}
-@keyframes sh-pin{0%,100%{opacity:.55;transform:rotate(45deg) scale(1)}
-  50%{opacity:1;transform:rotate(45deg) scale(1.25)}}
-.sh-frame.sh-engaged .sh-pin{opacity:0;}
-.sh-spot:hover .sh-pin,.sh-spot:focus-visible .sh-pin{opacity:0;}
+/* the dock is hidden while Home is on screen */
+[data-dock]{transition:opacity .45s ease;}
+[data-dock].sh-hide{opacity:0;pointer-events:none;}
 
-.sh-note{position:absolute;z-index:6;pointer-events:none;background:#f2d162;color:#41341a;
-  padding:8px 11px 9px;line-height:1.15;white-space:nowrap;
-  box-shadow:2px 3px 0 rgba(90,66,20,.45),0 8px 20px -6px rgba(0,0,0,.5);
-  opacity:0;transform:translateY(7px) rotate(var(--rot,-2deg)) scale(.94);
-  transition:opacity .16s ease,transform .16s cubic-bezier(.2,1.5,.4,1);}
-.sh-note::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;
-  background:repeating-linear-gradient(90deg,#e5bf4c 0 4px,#f2d162 4px 8px);}
-.sh-note b{display:block;font-size:clamp(12px,1.25vw,17px);font-weight:700;letter-spacing:.5px;}
-.sh-note span{display:block;font-size:clamp(8px,.8vw,10px);letter-spacing:.22em;opacity:.62;
-  margin-top:3px;text-transform:uppercase;}
-.sh-spot:hover + .sh-note,.sh-spot:focus-visible + .sh-note{
-  opacity:1;transform:translateY(0) rotate(var(--rot,-2deg)) scale(1);}
-
-@media (hover:none){
-  .sh-note{opacity:.94;transform:translateY(0) rotate(var(--rot,-2deg)) scale(.86);}
-  .sh-pin{opacity:.7;}
-  .sh-stage{padding:clamp(10px,2vh,20px) clamp(64px,14vw,86px) clamp(10px,2vh,20px) clamp(10px,3vw,20px);}
-}
 @media (prefers-reduced-motion:reduce){
-  .sh-shafts,.sh-dapple i,.sh-pin{animation:none!important;}
-  .sh-spot:hover::before{animation:none;}
+  .sh-shafts,.sh-dapple i{animation:none!important;}
 }
 </style>
 </head>
@@ -158,23 +124,16 @@
   <div data-page="home" data-screen-label="Dashboard" data-active="{{ show.home }}" style="position:absolute;inset:0;z-index:1;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:clamp(74px,9vh,110px) clamp(70px,9vw,150px) clamp(40px,6vh,80px) clamp(24px,6vw,90px);box-sizing:border-box;background:#eef3fc;">
     <div data-scrollable style="position:absolute;inset:0;z-index:2;overflow-y:auto;overflow-x:hidden;box-sizing:border-box;background:linear-gradient(180deg,#8f7ed6 0%,#b98ad8 20%,#ea8fc0 42%,#ff9aa8 62%,#ffb488 82%,#ffd9a4 100%);">
       <div class="sh-stage" data-hero>
-      <img class="sh-bg" src="assets/hero.webp" alt="" aria-hidden="true">
-      <div class="sh-frame">
-        <img class="sh-art" src="assets/hero.webp" alt="Songqi 的工作室 —— 像素画首页，可点击电脑、钢琴、日历与人物">
+        <img class="sh-art" src="assets/hero.webp" alt="Songqi 的工作室 —— 可点击的像素画首页">
         <div class="sh-shafts"></div>
         <div class="sh-dapple"><i class="sh-d1"></i><i class="sh-d2"></i><i class="sh-d3"></i><i class="sh-d4"></i></div>
         <canvas class="sh-fx" data-petals></canvas>
         <div class="sh-grade"></div>
-      <button type="button" class="sh-spot" data-go="work" aria-label="作品 Work" style="left:36.1%;top:22.5%;width:35.2%;height:42.3%;"><span class="sh-pin"></span></button>
-      <div class="sh-note" style="left:38%;top:12.5%;--rot:-2deg;"><b>作品</b><span>Work</span></div>
-      <button type="button" class="sh-spot" data-go="skills" aria-label="技能 Skills" style="left:0.0%;top:53.5%;width:27.0%;height:15.5%;"><span class="sh-pin"></span></button>
-      <div class="sh-note" style="left:20%;top:44.0%;--rot:2deg;"><b>技能</b><span>Skills</span></div>
-      <button type="button" class="sh-spot" data-go="experience" aria-label="经历 Experience" style="left:65.5%;top:2.0%;width:15.6%;height:21.7%;"><span class="sh-pin"></span></button>
-      <div class="sh-note" style="left:48%;top:5.0%;--rot:-3deg;"><b>经历</b><span>Experience</span></div>
-      <button type="button" class="sh-spot" data-go="about" aria-label="关于 About" style="left:71.8%;top:30.0%;width:25.7%;height:70.0%;"><span class="sh-pin"></span></button>
-      <div class="sh-note" style="left:58%;top:76.0%;--rot:2deg;"><b>关于</b><span>About</span></div>
+        <button type="button" class="sh-spot" data-go="work" aria-label="作品 Work" data-l="36.1" data-t="22.5" data-w="35.2" data-h="42.3"></button>
+        <button type="button" class="sh-spot" data-go="skills" aria-label="技能 Skills" data-l="0.0" data-t="53.5" data-w="27.0" data-h="15.5"></button>
+        <button type="button" class="sh-spot" data-go="experience" aria-label="经历 Experience" data-l="65.5" data-t="2.0" data-w="15.6" data-h="21.7"></button>
+        <button type="button" class="sh-spot" data-go="about" aria-label="关于 About" data-l="71.8" data-t="30.0" data-w="25.7" data-h="70.0"></button>
       </div>
-    </div>
     </div>
   </div>
 
@@ -1131,31 +1090,71 @@ class Component extends DCLogic {
 </script>
 
 <script>
-/* ===== pixel hero: petals, dust motes, hotspot pins ===== */
+/* ===== pixel hero: full-bleed art, tracked hotspots, sakura petals ===== */
 (function () {
-  var CFG = { petalCount:46, fallSpeed:.16, swayAmount:.55, windBase:.10,
-              gustStrength:.30, gustEvery:9, moteCount:26, artWidth:420 };
+  var IMG_W = 1477, IMG_H = 1065;   /* natural size of hero.webp */
+  var POS_X = 0.5;                  /* must match object-position X */
+  var CFG = { fallSpeed:.16, swayAmount:.55, windBase:.10,
+              gustStrength:.30, gustEvery:9, artPx:6.2, density:900 };
   var COLORS = ['#f6bcd0','#efa5be','#fad7e3','#e991b0','#fdeaf1'];
   var rand = function (a, b) { return a + Math.random() * (b - a); };
 
   function boot() {
+    var stage = document.querySelector('[data-hero]');
     var cv    = document.querySelector('[data-petals]');
-    var frame = cv && cv.closest ? cv.closest('.sh-frame') : null;
     var home  = document.querySelector('[data-page="home"]');
-    if (!cv || !frame) return false;
+    var dock  = document.querySelector('[data-dock]');
+    if (!stage || !cv) return false;
 
     var ctx = cv.getContext('2d');
     if (!ctx) return true;
 
-    var reduce  = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var AW = CFG.artWidth, AH = 0, raf = 0, running = false, t0 = null;
+    var spots  = [].slice.call(stage.querySelectorAll('.sh-spot'));
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var AW = 420, AH = 0, raf = 0, running = false, t0 = null;
+    var petals = [], motes = [];
 
-    function resize() {
-      var r = frame.getBoundingClientRect();
+    /* object-position Y, read from CSS so the two stay in sync */
+    function anchorY() {
+      var v = getComputedStyle(stage).getPropertyValue('--sh-anchor').trim();
+      var n = parseFloat(v);
+      return isNaN(n) ? 0.32 : (v.indexOf('%') > -1 ? n / 100 : 0.32);
+    }
+
+    /* place each hotspot on the artwork's real on-screen rect, so the
+       boxes stay glued to the objects no matter how the art is cropped */
+    function layout() {
+      var r = stage.getBoundingClientRect();
       if (!r.width || !r.height) return;
-      AH = Math.round(AW * (r.height / r.width));
-      cv.width = AW; cv.height = AH;
-      ctx.imageSmoothingEnabled = false;
+
+      var s  = Math.max(r.width / IMG_W, r.height / IMG_H);
+      var w  = IMG_W * s, h = IMG_H * s;
+      var ox = (r.width - w) * POS_X;
+      var oy = (r.height - h) * anchorY();
+
+      for (var i = 0; i < spots.length; i++) {
+        var d = spots[i].dataset, st = spots[i].style;
+        st.left   = (ox + parseFloat(d.l) / 100 * w) + 'px';
+        st.top    = (oy + parseFloat(d.t) / 100 * h) + 'px';
+        st.width  = (parseFloat(d.w) / 100 * w) + 'px';
+        st.height = (parseFloat(d.h) / 100 * h) + 'px';
+      }
+
+      /* petal grid sized so its pixels match the artwork's chunkiness */
+      var nw = Math.max(160, Math.round(r.width / CFG.artPx));
+      var nh = Math.max(80,  Math.round(r.height / CFG.artPx));
+      if (nw !== AW || nh !== AH) {          /* resizing clears the canvas, so only when it really changed */
+        AW = nw; AH = nh;
+        cv.width = AW; cv.height = AH;
+        ctx.imageSmoothingEnabled = false;
+      }
+
+      var want = Math.min(110, Math.max(34, Math.round(AW * AH / CFG.density)));
+      while (petals.length < want) petals.push(mkPetal(true));
+      while (petals.length > want) petals.pop();
+      var wantM = Math.round(want * 0.55);
+      while (motes.length < wantM) motes.push(mkMote());
+      while (motes.length > wantM) motes.pop();
     }
 
     function mkPetal(seeded) {
@@ -1168,14 +1167,6 @@ class Component extends DCLogic {
       return { x: rand(0, AW), y: rand(0, AH), z: rand(.3, 1),
                ph: rand(0, 6.28), sp: rand(.004, .012) };
     }
-
-    resize();
-    if (window.ResizeObserver) new ResizeObserver(resize).observe(frame);
-    else window.addEventListener('resize', resize);
-
-    var petals = [], motes = [], i;
-    for (i = 0; i < CFG.petalCount; i++) petals.push(mkPetal(true));
-    for (i = 0; i < CFG.moteCount; i++)  motes.push(mkMote());
 
     function drawPetal(p) {
       var flip = Math.abs(Math.cos(p.phase));
@@ -1192,14 +1183,13 @@ class Component extends DCLogic {
       ctx.globalAlpha = 1;
     }
 
-    function frameLoop(ts) {
+    function loop(ts) {
       if (!running) return;
       if (t0 === null) t0 = ts;
       var t = (ts - t0) / 1000, k, p, m;
       ctx.clearRect(0, 0, AW, AH);
 
-      var gp = (t % CFG.gustEvery) / CFG.gustEvery;
-      var gs = Math.max(0, Math.sin(gp * 6.283));
+      var gs = Math.max(0, Math.sin(((t % CFG.gustEvery) / CFG.gustEvery) * 6.283));
       var gust = gs * gs * CFG.gustStrength;
 
       ctx.fillStyle = '#fff3d6';
@@ -1208,7 +1198,7 @@ class Component extends DCLogic {
         m.ph += m.sp; m.x += .05 + gust * .3; m.y += Math.sin(m.ph) * .05 - .012;
         if (m.x > AW) m.x = 0;
         if (m.y < -2) m.y = AH * .75;
-        if (m.x > AW * .62 || m.y > AH * .82) continue;
+        if (m.x > AW * .62 || m.y > AH * .86) continue;
         ctx.globalAlpha = (.10 + .28 * Math.abs(Math.sin(m.ph))) * m.z;
         ctx.fillRect(Math.round(m.x), Math.round(m.y), 1, 1);
       }
@@ -1226,36 +1216,41 @@ class Component extends DCLogic {
         }
         drawPetal(p);
       }
-      raf = requestAnimationFrame(frameLoop);
+      raf = requestAnimationFrame(loop);
     }
 
-    function start() { if (!running) { running = true; t0 = null; raf = requestAnimationFrame(frameLoop); } }
+    function start() { if (!running) { running = true; t0 = null; raf = requestAnimationFrame(loop); } }
     function stop()  { running = false; if (raf) cancelAnimationFrame(raf); }
 
-    /* only animate while the Home page is the active screen */
-    function sync() {
-      var active = !home || home.getAttribute('data-active') !== 'false';
-      if (active && !document.hidden) start(); else stop();
+    function onHome() {
+      return !home || home.getAttribute('data-active') !== 'false';
     }
+    /* animate only on Home, and hide the dock while Home is showing */
+    function sync() {
+      var here = onHome();
+      if (dock) dock.classList.toggle('sh-hide', here);
+      if (here && !document.hidden) { layout(); start(); } else stop();
+    }
+
+    layout();
+    if (window.ResizeObserver) new ResizeObserver(layout).observe(stage);
+    else window.addEventListener('resize', layout);
+
     if (home && window.MutationObserver) {
       new MutationObserver(sync).observe(home, { attributes: true, attributeFilter: ['data-active'] });
     }
     document.addEventListener('visibilitychange', sync);
 
-    if (reduce) { running = true; requestAnimationFrame(function (ts) { frameLoop(ts); stop(); }); }
+    if (reduce) { running = true; requestAnimationFrame(function (ts) { loop(ts); stop(); }); if (dock) dock.classList.toggle('sh-hide', onHome()); }
     else sync();
 
-    /* fade the idle pins once the visitor engages */
-    frame.addEventListener('pointerenter', function () { frame.classList.add('sh-engaged'); }, { once: true });
     return true;
   }
 
   /* the page is rendered by support.js, so retry until the hero exists */
   if (!boot()) {
     var tries = 0;
-    var id = setInterval(function () {
-      if (boot() || ++tries > 100) clearInterval(id);
-    }, 60);
+    var id = setInterval(function () { if (boot() || ++tries > 120) clearInterval(id); }, 60);
   }
 })();
 </script>
