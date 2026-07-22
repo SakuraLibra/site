@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sakura</title>
+  <script>
+    (function () {
+      var mobile = /Android|iPhone|iPad|iPod|Mobile|BlackBerry|IEMobile|Opera Mini|Opera Mobi|Windows Phone/i.test(navigator.userAgent);
+      location.replace(mobile ? "/mobile/" : "/desktop/");
+    }());
+  </script>
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=/desktop/">
+  </noscript>
+</head>
+<body></body>
+</html>
